@@ -1,44 +1,15 @@
-# b7web
+// FAIXA CADASTRAL
 <?php
 
-// Criando uma constante;
-// Uma constante sempre vai possuir letras maisculas
-// nunca vai ter seu valor alterado
-// Não se redefini uma constante
-define('IDADE_APOSENTADORIA_MASCULINA',65);
-define('IDADE_APOSENTADORIA_FEMENINA',62);
 
-// valores
+require 'constantes.php';
+include 'dados.php';
+require 'functions.php';
 
-$nome = 'Matheus';
-$idade = 18;
-$sexo = 'Masculino';
-$salario_Mensal = 2210.30;
-$salario_Anual = $salario_Mensal * 12;
-$esta_empregado = true;
-$habilidades = [
-    'php', 'javaScript', 'html', 'css'
-];
 
-// Codigos
-
-// operador ternario, RESUME o if
-// variavel = () ? ... : ...;
-// variavel = () ? valor_se_atender_condição : caso_não_atender_condição;
-
-$situacao_emprego = null;
-$situacao_emprego = $esta_empregado == true ? 'Empregado' : 'Desempregado';
 
    
-// operador ternario, RESUME o if
-$anos_necessarios_para_aposentar = null;
-$anos_necessarios_para_aposentar = $sexo == 'Masculino' ? IDADE_APOSENTADORIA_MASCULINA : IDADE_APOSENTADORIA_FEMENINA;
-
-
-
-
 ?>
-
 
 <!-- estrutura HTML pro CSS -->
 <!DOCTYPE html>
@@ -100,9 +71,9 @@ color: #000;
         <p>Idade: <strong><?php echo $idade;?> </strong></p>
         <p>Sexo: <strong><?php echo $sexo; ?> </strong></p>
         <p>Salário Mensal: <strong><?php echo number_format($salario_Mensal, 2, ',', '.'); ?> </strong></p>
-        <p>Salário Anual: <strong><?php echo number_format($salario_Mensal * 12, 2, ',', '.') ; ?></strong></p>
+        <p>Salário Anual: <strong><?php echo CalcularSalarioAnual($salario_Mensal) ; ?></strong></p>
 
-        <p>Status de Emprego: <strong><?php echo $situacao_emprego; ?> </strong></p>
+        <p>Status de Emprego: <strong><?php echo $esta_empregado == true ? 'Empregado' : 'Desempregado'; ?> </strong></p>
 
         <p>Anos para Aposentadoria: <strong><?php echo $anos_necessarios_para_aposentar - $idade; ?> </strong></p>
 
@@ -115,3 +86,92 @@ color: #000;
 </html>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Dados.php
+
+<?php 
+
+
+$nome = 'Matheus';
+$idade = 18;
+$sexo = 'Masculino';
+$salario_Mensal = 2210.30;
+$esta_empregado = true;
+$habilidades = [
+    'php', 'javaScript', 'html', 'css'
+];
+
+$anos_necessarios_para_aposentar = $sexo == 'M' ? IDADE_APOSENTADORIA_MASCULINA : IDADE_APOSENTADORIA_FEMENINA;
+
+$situacao_emprego = $esta_empregado == true ? 'Empregado' : 'Desempregado';
+
+
+
+// FUNCTION.PHP
+
+<?php 
+
+// Calculo do Salario Anual
+
+/**
+ * Uma função para descobrir o salario anual
+ * 
+ * @param float $salario_Mensal Um calculo para q o salario mensal, descubra o salario anual no caso * 12;
+ * @param float $salarioAnual Resultado do salario anual
+ * 
+ * @return float retorna o salario anual
+ */
+function CalcularSalarioAnual(float $salario_Mensal) : string  {
+    $tercoDeFerias = $salario_Mensal / 3;
+    $salarioAnual = ($salario_Mensal * 13) + $tercoDeFerias;
+    return convertNumberToBrl($salarioAnual);
+};
+
+// Quantos anos faltam para se aposentar
+
+
+// Transformar um Numero, em valor monetário;
+
+/**
+ * Transforma os numeros para modo normal Brasileiro
+ * 
+ * @param float $number valor numerico
+ * @return string $valor monetario
+ */
+function convertNumberToBrl(float $number) : string {
+   return  number_format($number, 2, ',', '.');
+}
+
+
+
+//CONSTANTES.PHP
+
+<?php
+
+// Criando uma constante;
+// Uma constante sempre vai possuir letras maisculas
+// nunca vai ter seu valor alterado
+// Não se redefini uma constante
+
+
+define('IDADE_APOSENTADORIA_MASCULINA',65);
+define('IDADE_APOSENTADORIA_FEMENINA',62);
+
+
+
