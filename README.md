@@ -175,3 +175,36 @@ define('IDADE_APOSENTADORIA_FEMENINA',62);
 
 
 
+
+
+Metodo POST
+
+<?php 
+
+
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<form action="dado.php" method="post">
+        <input type="text" name="login" placeholder="Digite seu nome de usuario">
+        <br/>
+        <input type="password" name="senha" placeholder="Digite a sua senha">
+        <input type="submit" value="Enviar">
+        <hr/>
+    </form>
+
+</body>
+</html>
+
+
+
